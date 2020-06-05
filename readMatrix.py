@@ -30,6 +30,7 @@ def FullContraction(adjmatrix):
         adjmatrix[nodea + '-' + nodeb] = [i for i in x+y if i != nodea and i != nodeb]
 
         #this could be changed with a dictionary of correspondences
+        #TODO fix problem names tooo long
         for nods in adjmatrix[nodea + '-' + nodeb]:
             adjmatrix[nods] = list(map(lambda x: nodea + '-' + nodeb if x == nodea or x== nodeb else x, adjmatrix[nods]))
     
