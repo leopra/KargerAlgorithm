@@ -49,7 +49,8 @@ def FullContraction(filename):
         ### sostituire con nuovo nodo e riposizionare gli archi corretti ###
         edges=changeEdge(edges, nodea, nodeb)  
         
-    print('Final result: ', len(edges))
+    #print('Final result: ', len(edges))
+    return len(edges)
 
 
 #### test per prima domanda#####
@@ -62,14 +63,14 @@ listfile=['input_random_1_6.txt', 'input_random_2_6.txt','input_random_3_6.txt',
 'input_random_33_175.txt', 'input_random_34_175.txt', 'input_random_35_175.txt', 'input_random_36_175.txt', 'input_random_37_200.txt', 
 'input_random_38_200.txt', 'input_random_39_200.txt', 'input_random_40_200.txt']
 
-string=""
-f=open('TimeFullContraction.txt', 'w+')
-for i in range(0, len(listfile)):
-    print(i)
-    start_time = time.time()
-    FullContraction(listfile[i])
-    string+= listfile[i] + '  ' +  str((time.time() - start_time)) + '\n'
-    print("time : %s seconds " % (time.time() - start_time))
-f.write(string)
-f.close
+#string=""
+#f=open('TimeFullContraction.txt', 'w+')
+#for i in range(0, len(listfile)):
+#    print(i)
+#    start_time = time.time()
+#    FullContraction(listfile[i])
+#    string+= listfile[i] + '  ' +  str((time.time() - start_time)) + '\n'
+#    print("time : %s seconds " % (time.time() - start_time))
+#f.write(string)
+#f.close
 
