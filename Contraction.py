@@ -1,28 +1,6 @@
 import random
 import numpy
-
-
-def parseFileCoords(filename):
-    with open('./datasets/' + filename, 'r') as f:
-        lines = f.readlines()
-        n=len(lines)
-        ### creazione matrice ####
-        adjmatrix = numpy.zeros(shape=(n,n))
-
-        for line in lines:
-            adj = line.strip().split()
-            vertice=int(adj[0])-1
-            for i in range(1, len(adj)):
-                edge=int(adj[i])-1
-                adjmatrix[vertice][edge]= 1
-            
-        print(adjmatrix)
-
-    return adjmatrix
-
-
-#parseFileCoords('input_random_1_6.txt')
-
+import time
 
 def ListEdge(filename):
     with open('./datasets/' + filename, 'r') as f:
@@ -58,7 +36,7 @@ def changeEdge(lista, nodea, nodeb):
                 lista[i]= (new, tupla[0])
     return lista
 
-def Contraction(filename):
+def FullContraction(filename):
     edges, nodes= ListEdge(filename) #lista archi #
     while nodes>2:
         x= random.choice(edges) ## estrazione casuale arco ##
@@ -74,6 +52,24 @@ def Contraction(filename):
     print('Final result: ', len(edges))
 
 
-Contraction('input_random_20_75.txt')
+#### test per prima domanda#####
+listfile=['input_random_1_6.txt', 'input_random_2_6.txt','input_random_3_6.txt', 'input_random_4_6.txt', 'input_random_5_10.txt', 'input_random_6_10.txt', 'input_random_7_10.txt',
+'input_random_8_10.txt', 'input_random_9_25.txt', 'input_random_10_25.txt', 'input_random_11_25.txt', 'input_random_12_25.txt', 'input_random_13_50.txt', 
+'input_random_14_50.txt', 'input_random_15_50.txt', 'input_random_16_50.txt', 'input_random_17_75.txt', 
+'input_random_18_75.txt', 'input_random_19_75.txt',  'input_random_20_75.txt', 'input_random_21_100.txt', 'input_random_22_100.txt', 'input_random_23_100.txt', 'input_random_24_100.txt', 
+'input_random_25_125.txt', 'input_random_26_125.txt', 'input_random_27_125.txt', 'input_random_28_125.txt', 
+'input_random_29_150.txt', 'input_random_30_150.txt', 'input_random_31_150.txt', 'input_random_32_150.txt', 
+'input_random_33_175.txt', 'input_random_34_175.txt', 'input_random_35_175.txt', 'input_random_36_175.txt', 'input_random_37_200.txt', 
+'input_random_38_200.txt', 'input_random_39_200.txt', 'input_random_40_200.txt']
 
+string=""
+f=open('TimeFullContraction.txt', 'w+')
+for i in range(0, len(listfile)):
+    print(i)
+    start_time = time.time()
+    FullContraction(listfile[i])
+    string+= listfile[i] + '  ' +  str((time.time() - start_time)) + '\n'
+    print("time : %s seconds " % (time.time() - start_time))
+f.write(string)
+f.close
 
