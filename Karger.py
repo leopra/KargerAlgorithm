@@ -10,8 +10,11 @@ def defineK(n):
     return round(k)
 
 def karger(filename, k):
+    timeinit = time.time()
     min= MAX
     while k>0:
+        if time.time() > timeinit + 10:
+            break
         edges=c.FullContraction(filename)
         if edges<min:
             min=edges
