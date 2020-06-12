@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 
 
-##### bar plot con media #####
-def plotBar():
+##### line plot con media #####
+def plotLine():
     labels=['6', '10', '25', '50', '75', '100', '125', '150', '175', '200']
     time=[]
     with open('TimeFullContraction.txt', 'r') as f:
@@ -21,7 +21,7 @@ def plotBar():
             else:
                 media+=float(t[1])
                 count+=1
-    print(time)
+    print(round(time))
     print(len(time))
     index = np.arange(10)
     bar_width = 0.15
@@ -37,7 +37,31 @@ def plotBar():
     plt.legend()
     plt.show()
 
-#plotBar()
+plotLine()
+
+##### line plot numero ripetizioni FulContraction #####
+def plotIt():
+    labels=['6', '10', '25', '50', '75', '100', '125', '150', '175', '200']
+    ripetizioni=[]
+    with open('NumContraction.txt', 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            t = line.strip().split()
+            ripetizioni.append(t[1])
+
+    print(ripetizioni)
+    index = np.arange(10)
+
+    plt.plot(ripetizioni, linestyle='--', marker='o', color='b')
+
+    y_pos = np.arange(len(labels))
+    plt.rcParams["figure.figsize"] = (14,10)
+    plt.ylabel('Iterazioni totali')
+    plt.xlabel('Dimensione Grafo')
+    plt.xticks(y_pos, labels)
+    plt.show()
+
+plotIt()
 
 def b_plot(p, labels, groups, a, xy):
     # create plot
@@ -94,4 +118,4 @@ def plotTime():
     b_plot(t5, x5, 8, ax5, 0)
     plt.show()
 
-plotTime()
+#plotTime()
