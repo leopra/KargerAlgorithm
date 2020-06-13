@@ -6,23 +6,9 @@ from matplotlib.pyplot import figure
 ##### line plot con media #####
 def plotLine():
     labels=['6', '10', '25', '50', '75', '100', '125', '150', '175', '200']
-    time=[]
-    with open('TimeFullContraction.txt', 'r') as f:
-        lines = f.readlines()
-        count=1
-        media=0
-        for line in lines:
-            t = line.strip().split()
-            if count==3:
-                media=media/4
-                time.append(media)
-                count=0
-                media=0
-            else:
-                media+=float(t[1])
-                count+=1
-    print(round(time))
-    print(len(time))
+    time=[9.78708267211914e-05, 0.00012624263763427734, 0.0009779930114746094, 0.011298954486846924, 0.04109221696853638,0.11278682947158813 , 0.28355300426483154,
+    0.5602636337280273, 1.0336890816688538, 1.8040754795074463]
+    
     index = np.arange(10)
     bar_width = 0.15
     opacity = 0.8
@@ -38,6 +24,28 @@ def plotLine():
     plt.show()
 
 plotLine()
+
+##### line plot con media per karger #####
+def plotKarger():
+    labels=['6', '10', '25', '50', '75']
+    time=[0.00215238332748413, 0.0123276114463806, 0.944083213806152, 53.0861380696297,
+    487.797095239162]
+    
+    index = np.arange(5)
+    bar_width = 0.15
+    opacity = 0.8
+
+    plt.plot(time, linestyle='--', marker='o', color='r', label="FullContraction")
+
+    y_pos = np.arange(len(labels))
+    plt.rcParams["figure.figsize"] = (10,10)
+    plt.ylabel('Tempo in secondi ')
+    plt.xlabel('Dimensione Grafo')
+    plt.xticks(y_pos, labels)
+    plt.legend()
+    plt.show()
+
+plotKarger()
 
 ##### line plot numero ripetizioni FulContraction #####
 def plotIt():
@@ -61,7 +69,7 @@ def plotIt():
     plt.xticks(y_pos, labels)
     plt.show()
 
-plotIt()
+#plotIt()
 
 def b_plot(p, labels, groups, a, xy):
     # create plot
