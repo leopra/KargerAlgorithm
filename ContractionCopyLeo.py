@@ -2,6 +2,8 @@ import random
 import numpy
 import time
 import math
+import Contraction as c 
+import sys
 
 def ListEdge(filename):
     with open('./datasets/' + filename, 'r') as f:
@@ -37,8 +39,9 @@ def changeEdge(lista, nodea, nodeb):
                 lista[i]= (new, tupla[0])
     return lista
 
-def FullContraction(filename):
-    edges, nodes= ListEdge(filename) #lista archi #
+def FullContraction(edges,nodes):
+    edges = edges.copy()
+    nodes = nodes.copy()
     while nodes>2:
         x= random.choice(edges) ## estrazione casuale arco ##
         nodea= x[0]
@@ -68,33 +71,63 @@ def getrealresult(filename):
     f = open('./datasets/' + a, 'r')
     r = f.readline().strip()
     f.close()
-    return r
+    return int(r)
 
+def defineK(n):
+    k= ((n*n)/2)* math.log(n)
+    print(round(k))
+    return round(k)
 
 
 # string=""
 # f=open('TimeFullContraction.txt', 'w+')
 
-def KargerAlg(adjmatrix, k, filename):
+def KargerAlg(filename, k):
     found= False
+    gotten = -1
     minum = math.inf
     REAL = getrealresult(filename)
     for i in range(k):
-        temp = FullContraction(adjmatrix)
-        if REAL == partialresult and found == False:
+        temp = c.FullContraction(filename)
+        if REAL == temp and found == False:
             gotten = time.time()
             found = True
+            return minum, gotten
         if temp < minum:
             minum = temp
-        print('calculating ', i)
 
-    return minum
+    return minum, gotten
+
+def nodfromname(name):
+    idx = name.find('.')
+    num = ''
+    idx += -1 
+    while (name[idx] != '_'):
+        num += name[idx]
+        idx += -1
+        
+    return (int(num[::-1]))
+
+f=open('ResultKargerLeo2.txt', 'w+')
 
 for i in range(0, len(listfile)):
-    print(i)
+    k = 'NOT_FOUND'
+    print(listfile[i], ' ', nodfromname(listfile[i]))
+    REAL = getrealresult(listfile[i])
     start_time = time.time()
-    partialresult = KargerAlg(listfile[i], 100)
+    partialresult, solvetime = KargerAlg(listfile[i], defineK(nodfromname(listfile[i])))
+    end = time.time()
+    print("time : %s seconds " % (end - start_time))
+    
+    if (solvetime==-1):
+        print('NOT FOUND')
+    else:
+        print("time first_solution: %s seconds " % (solvetime - start_time))
+        k = solvetime - start_time
 
-    print("time : %s seconds " % (time.time() - start_time))
 
 
+    f.write(listfile[i] + '  ' + str(REAL) + '  ' + str(k) + '\n')
+
+
+f.close()

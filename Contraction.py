@@ -74,3 +74,21 @@ listfile=['input_random_1_6.txt', 'input_random_2_6.txt','input_random_3_6.txt',
 #f.write(string)
 #f.close
 
+#my methods LEO
+def nodfromname(name):
+    idx = name.find('.')
+    num = ''
+    idx += -1 
+    while (name[idx] != '_'):
+        num += name[idx]
+        idx += -1
+        
+    return (int(num[::-1]))
+
+#my method Leo
+def getrealresult(filename):
+    a = 'output' + filename[5:]
+    f = open('./datasets/' + a, 'r')
+    r = f.readline().strip()
+    f.close()
+    return int(r)
