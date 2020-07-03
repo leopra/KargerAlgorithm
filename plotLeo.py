@@ -36,7 +36,7 @@ for i in content:
      dizio[num].append(float(c))
 
 #plot
-n_groups = len(dizio)
+n_groups = 5
 fig, ax = plt.subplots()
 index = np.arange(n_groups)
 bar_width = 0.35
@@ -47,15 +47,17 @@ opacity = 0.8
 # color='b',
 # label='Frank')
 
-rects2 = plt.bar(index + bar_width, [mean(x) for x in dizio.values()], bar_width,
+z = [mean(x) for x in dizio.values()]
+print(z)
+rects2 = plt.bar(['75', '100', '125', '150', '175', '200'], z[4:])
 alpha=opacity,
 color='g',
-label='Tempo Medio Soluzione Ottima')
+label='Tempo Medio Soluzione Ottima'
 
 plt.xlabel('graphs')
 plt.ylabel('time')
 plt.title('Optimal Solution time Plot')
-plt.xticks(index + bar_width, ('6','10','25', '50', '75', '100', '125', '150', '175', '200'))
+plt.xticks(['75', '100', '125', '150', '175', '200'])
 plt.legend()
 
 plt.show()

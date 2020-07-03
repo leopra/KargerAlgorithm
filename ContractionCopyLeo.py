@@ -91,8 +91,9 @@ def KargerAlg(filename, k):
         temp = c.FullContraction(filename)
         if REAL == temp and found == False:
             gotten = time.time()
+            print('TROVATA', gotten)
             found = True
-            return minum, gotten
+            return temp, gotten
         if temp < minum:
             minum = temp
 
@@ -108,26 +109,27 @@ def nodfromname(name):
         
     return (int(num[::-1]))
 
-f=open('ResultKargerLeo2.txt', 'w+')
+f=open('ResultKarger100.txt', 'w+')
 
 for i in range(0, len(listfile)):
     k = 'NOT_FOUND'
     print(listfile[i], ' ', nodfromname(listfile[i]))
     REAL = getrealresult(listfile[i])
     start_time = time.time()
-    partialresult, solvetime = KargerAlg(listfile[i], defineK(nodfromname(listfile[i])))
+    partialresult, solvetime = KargerAlg(listfile[i], 10)
+    print('solved: ', solvetime)
     end = time.time()
     print("time : %s seconds " % (end - start_time))
     
-    if (solvetime==-1):
+    if (REAL != partialresult):
         print('NOT FOUND')
     else:
         print("time first_solution: %s seconds " % (solvetime - start_time))
-        k = solvetime - start_time
+        k = 'found'
 
 
 
-    f.write(listfile[i] + '  ' + str(REAL) + '  ' + str(k) + '\n')
+    f.write(listfile[i] + '  ' + str(REAL) + '  ' + str(partialresult) + '  ' + str(k) + '\n')
 
 
 f.close()
